@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: LGPL-3.0-or-later
+// SPDX-License-Identifier: CC0-1.0
 pragma solidity ^0.7.1;
 import { ABDKMath64x64 } from "abdk-libraries-solidity/ABDKMath64x64.sol";
 import "./BaseRestorableSalary.sol";
@@ -66,7 +66,7 @@ contract SalaryWithDAO is BaseRestorableSalary {
     /// A user can agree for DAO control. Then his account can be restored by DAO for the expense
     /// of the DAO assigned personnel or software being able to steal his funds.
     ///
-    /// Be exteremely careful calling this method: If you refuse and lose your key, your funds are lost!
+    /// Be extremely careful calling this method: If you refuse and lose your key, your funds are lost!
     ///
     /// Fishers may trick one to resign mistakenly. However, it's no much worse than just fishing for
     /// withdrawing the salary token, because a user could just register anew and notify traders/oracles

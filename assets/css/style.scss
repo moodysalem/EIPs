@@ -2,6 +2,8 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
+$content-width: 1152px;
+
 @import 'minima';
 
 .site-header {
@@ -24,20 +26,26 @@
   }
 }
 
-main.page-content {
-  div.wrapper {
-    max-width: unset;
-  }
-}
-
 .footer-col-wrapper {
   color: #111;
+}
+
+.table-borderless, .table-borderless * {
+  border-style : hidden !important; // !important To override Jekyll styling
+  background-color: rgba(0,0,0,0) !important;
+}
+
+table.preamble > tbody > tr > :not(:first-child) {
+  width: 100%;
+}
+
+table.preamble > tbody > tr > :first-child {
+  white-space: nowrap;
 }
 
 a, a:link {
   color: #726E97;
   text-decoration: none;
-  transition: 0.5s;
 }
 
 a:visited {
@@ -46,44 +54,113 @@ a:visited {
 
 a:hover, a:active {
   color: #7F557D;
-  box-shadow: 0 3px 0 #7F557D;
+  text-decoration: underline;
 }
 
-.status {
-  border-radius: 6px;
-  line-height: 18px;
-  overflow: hidden;
-  padding: 12px;
+.site-footer, .site-footer * {
+  box-sizing: content-box !important; // !important To override bootstrap styling
+}
+
+.no-underline {
+  text-decoration: none !important; // !important To override previous <a> styling
+}
+
+.badge:hover {
+  filter: brightness(75%);
+  transition: all 0.25s ease;
+}
+
+h1 {
+  vertical-align: middle;
+}
+
+h1 a {
+  height: 1em;
   display: inline-block;
-  margin-bottom: 15px;
+  vertical-align: baseline;
 }
 
-.draft {
-  @extend .status;
-  background-color: #fffbea;
-  border: solid 1px #f1c40f;
+.inline-svg {
+  display: inline-block;
+  vertical-align: bottom;
+  fill: currentColor;
+  width: 1.5ex;
+  height: 100%;
+  object-fit: cover;
 }
 
-.review {
-  @extend .status;
-  background-color: #f0f7fb;
-  border: solid 1px #3498db;
+@media print {
+
+  header,
+  footer {
+    display: none;
+  }
 }
 
-.lastcall {
-  @extend .status;
-  background-color: #e7f6f0;
-  border: solid 1px #27ae60;
+// This will make ALL tables scrollable
+.page-content table {
+  display: inline-block;
+  width: auto !important;   /* shrink-to-fit its contents */
+  max-width: 100%; /* never exceed the width of its container */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-.stagnant {
-  @extend .status;
-  background-color: #ffdead;
-  border: solid 1px #ff6700;
+// Fix text overflow in EIP content
+.home {
+  max-width: 100%;
+  overflow-x: hidden;
+  
+  // Target all content that could overflow
+  p, li, td, div {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  
+  // Specifically handle URLs in links
+  a {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    display: inline-block;
+    max-width: 100%;
+  }
+  
+  // Handle code blocks that might contain long strings
+  pre {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  
+  // Inline code should wrap
+  code {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
 }
 
-.withdrawn {
-  @extend .status;
-  background-color: #f9e7e5;
-  border: solid 1px #c0392b;
+// Specifically target lists (where references usually are)
+.home ul, .home ol {
+  max-width: 100%;
+  padding-right: 20px; // Give some breathing room
+  
+  li {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    
+    // Extra aggressive breaking for URLs
+    a {
+      word-break: break-all;
+      hyphens: auto;
+    }
+  }
+}
+
+// makes an exception to code inside tables allowing them to expand the table's width since it has overflow scrolling
+.page-content table code {
+  white-space: nowrap;
+  word-break: normal;
+  overflow-wrap: normal;
 }
